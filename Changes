@@ -1,5 +1,8 @@
 Revision history for Perl extension FormValidator-Simple-Struct
 
+0.12 2013-10-22T02:15:31Z
+    - add Hash::MultiValue
+
 0.11 2013-10-21T17:16:50Z
     - add requires
 
