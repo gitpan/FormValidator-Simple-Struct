@@ -4,7 +4,7 @@
       "S2 <s2otsa59@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.8.0",
+   "generated_by" : "Minilla/v0.11.0",
    "license" : [
       "perl_5"
    ],
@@ -60,19 +60,19 @@
    "provides" : {
       "FormValidator::Simple::Struct" : {
          "file" : "lib/FormValidator/Simple/Struct.pm",
-         "version" : "0.13"
+         "version" : "0.14"
       },
       "FormValidator::Simple::Struct::AllowCharacter" : {
          "file" : "lib/FormValidator/Simple/Struct/AllowCharacter.pm",
-         "version" : "0.13"
+         "version" : "0.14"
       },
       "FormValidator::Simple::Struct::CharTypes" : {
          "file" : "lib/FormValidator/Simple/Struct/CharTypes.pm",
-         "version" : "0.13"
+         "version" : "0.14"
       },
       "FormValidator::Simple::Struct::Regex" : {
          "file" : "lib/FormValidator/Simple/Struct/Regex.pm",
-         "version" : "0.13"
+         "version" : "0.14"
       }
    },
    "release_status" : "stable",
@@ -86,7 +86,7 @@
          "web" : "https://github.com/S2/FormValidator-Simple-Struct"
       }
    },
-   "version" : "0.13",
+   "version" : "0.14",
    "x_contributors" : [
       "S2 <s2otsa@hotmail.com>",
       "sato sin <shinichiro@wano.co.jp>"

@@ -18,6 +18,7 @@ t/005_length.t
 t/006_between.t
 t/007_chars.t
 t/008_allow_chars.t
+t/009_digit_length.t
 t/00_compile.t
 META.yml
 MANIFEST

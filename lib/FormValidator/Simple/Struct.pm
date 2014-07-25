@@ -9,7 +9,7 @@ use Test::More;
 use Data::Dumper;
 use Class::Load;
 
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 # static values
 sub HASHREF {'excepted hash ref'};
@@ -20,6 +20,7 @@ sub REF {'excepted ref'};
 sub INVALID{'excepted ' . $_[0]};
 
 sub LENGTH_ERROR{'LENGTH IS WRONG'};
+sub DIGIT_LENGTH_ERROR{'DIGIT_LENGTH IS WRONG'};
 sub BETWEEN_ERROR{'BETWEEN IS WRONG'};
 sub CHARS_ERROR{'NOT ALLOWED CHAR EXIST'};
 
@@ -156,6 +157,15 @@ sub _check{
                                 }
                                 $self->_set_error($message, $position , $name , $type, $min , $max);
                             }
+                        }elsif($type eq 'DIGIT_LENGTH'){
+                            no strict;
+
+                            my $code = $self->can($type);
+                            die NO_SUCH_CHAR_TYPE($type) unless $code;
+                            unless($code->($param,$min,$max)){
+                                my $message = DIGIT_LENGTH_ERROR;
+                                $self->_set_error($message, $position , $name , $type, $min , $max);
+                            }
                         }elsif($type eq 'CHARTYPE'){
                             my (undef , @allow_chars) = @$_;
                             
@@ -240,7 +250,7 @@ FormValidator::Simple::Struct - Validation module for nested array ,hash ,scalar
 
 =head1 VERSION
 
-This document describes FormValidator::Simple::Struct version 0.13.
+This document describes FormValidator::Simple::Struct version 0.14.
 
 =head1 SYNOPSIS
 

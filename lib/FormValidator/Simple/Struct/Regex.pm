@@ -5,10 +5,10 @@ use warnings;
 use Email::Valid;
 use Time::Piece;
 
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 use base 'Exporter';
-our @EXPORT= qw/NOT_BLANK INT ASCII STRING DECIMAL EMAIL DATETIME DATE TIME TINYINT URL LENGTH BETWEEN/;
+our @EXPORT= qw/NOT_BLANK INT ASCII STRING DECIMAL EMAIL DATETIME DATE TIME TINYINT URL LENGTH BETWEEN DIGIT_LENGTH/;
 
 sub NOT_BLANK{
     my $s = shift;
@@ -119,6 +119,17 @@ sub LENGTH{
     }
 }
 
+sub DIGIT_LENGTH{
+    my ($s , $integer , $decimal) = @_;
+    my ($integer_value , $decimal_value) = $s =~ m/(\d+)\.(\d+)/;
+
+    if(length($integer_value) <= $integer && length($decimal_value) <= $decimal){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+
 sub BETWEEN{
     my ($s , $min , $max) = @_;
     if($s >= $min and $s <= $max){
@@ -143,7 +154,7 @@ FormValidator::Simple::Struct::Regex - Plugin for FormValidator::Simple::Struct
 
 =head1 VERSION
 
-This document describes FormValidator::Simple::Struct::Regex version 0.13.
+This document describes FormValidator::Simple::Struct::Regex version 0.14.
 
 =head1 SYNOPSIS
 
