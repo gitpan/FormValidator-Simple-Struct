@@ -9,7 +9,7 @@ use Test::More;
 use Data::Dumper;
 use Class::Load;
 
-our $VERSION = '0.14';
+our $VERSION = '0.15';
 
 # static values
 sub HASHREF {'excepted hash ref'};
@@ -53,13 +53,13 @@ sub check{
 
     $self->{error} = 0;
     $self->{error_object} = [];
-    $self->_check($param,$rule,'$param');
+    $self->_check($param , $param , $rule , '$param');
     
     !$self->{error};
 }
 
 sub _check{
-    my($self , $param , $rule , $position , $name) = @_;
+    my($self , $param , $parent_params , $rule , $position , $name) = @_;
 
     if(ref $param eq 'Hash::MultiValue'){
         $param = $param->as_hashref;
@@ -87,7 +87,7 @@ sub _check{
                             }
                         }
                     }else{
-                        $self->_check($param->{$_} , $rule->{$_} , $position . "->{$_}" , $_);
+                        $self->_check($param->{$_} , $param , $rule->{$_} , $position . "->{$_}" , $_);
                     }
                 }
             }elsif($ref eq 'ARRAY'){
@@ -100,9 +100,9 @@ sub _check{
                 }
                 for(0..$#{$param}){
                     if(defined $rule->[$_]){
-                        $self->_check($param->[$_] || "" , $rule->[$_] , $position . "->[$_]" , $name);
+                        $self->_check($param->[$_] || "" , $param , $rule->[$_] , $position . "->[$_]" , $name);
                     }else{
-                        $self->_check($param->[$_] || "" , $rule->[0] , $position . "->[$_]" , $name);
+                        $self->_check($param->[$_] || "" , $param , $rule->[0] , $position . "->[$_]" , $name);
                     }
                 }
             }else{
@@ -136,8 +136,14 @@ sub _check{
             }else{
                 for(@$rule){
                     if (ref $_ eq 'ARRAY'){
-                        my ($type,$min,$max) = @$_;
-                        
+                        my ($type , $min , $max) = @$_;
+                        if($min && $min !~ /^\d+\.\d+$|^\d+$/){
+                            $min = $parent_params->{$min}
+                        }
+                        if($max && $max !~ /^\d+\.\d+$|^\d+$/){
+                            $max = $parent_params->{$max}
+                        }
+
                         $max = $min unless defined $max;
 
                         if($type eq 'LENGTH' or $type eq 'BETWEEN'){
@@ -250,7 +256,7 @@ FormValidator::Simple::Struct - Validation module for nested array ,hash ,scalar
 
 =head1 VERSION
 
-This document describes FormValidator::Simple::Struct version 0.14.
+This document describes FormValidator::Simple::Struct version 0.15.
 
 =head1 SYNOPSIS
 

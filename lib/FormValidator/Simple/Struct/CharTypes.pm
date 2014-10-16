@@ -4,10 +4,10 @@ use strict;
 use warnings;
 use utf8;
 
-our $VERSION = '0.14';
+our $VERSION = '0.15';
 
 use base 'Exporter';
-our @EXPORT= qw/CHARTYPE::HIRAGANA CHARTYPE::KATAKANA CHARTYPE::KANJI CHARTYPE::GREEK CHARTYPE::ASCII CHARTYPE::CYRILLIC CHARTYPE::MATH CHARTYPE::NUMBER CHARTYPE::PUNCTUATION/;
+our @EXPORT= qw/CHARTYPE::HIRAGANA CHARTYPE::KATAKANA CHARTYPE::KANJI CHARTYPE::GREEK CHARTYPE::ASCII CHARTYPE::CYRILLIC CHARTYPE::MATH CHARTYPE::NUMBER CHARTYPE::ALPHABET CHARTYPE::PUNCTUATION/;
 
 sub CHARTYPE::HIRAGANA{
     '^\x{3040}-\x{309F}';
@@ -30,7 +30,11 @@ sub CHARTYPE::GREEK{
 }
 
 sub CHARTYPE::NUMBER{
-    '^\x{2150}-\x{218F}';
+    '^\x{2150}-\x{218F}\x{0030}-\x{0039}';
+}
+
+sub CHARTYPE::ALPHABET{
+    '^\x{0041}-\x{005A}^\x{0061}-\x{007A}';
 }
 
 sub CHARTYPE::CYRILLIC{
@@ -55,7 +59,7 @@ FormValidator::Simple::Struct::AllowChars - Plugin for FormValidator::Simple::St
 
 =head1 VERSION
 
-This document describes FormValidator::Simple::Struct::AllowChars version 0.14.
+This document describes FormValidator::Simple::Struct::AllowChars version 0.15.
 
 =head1 SYNOPSIS
 
